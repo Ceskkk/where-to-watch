@@ -1,0 +1,26 @@
+.searcher {
+  position: relative;
+  border: unset;
+  outline: 4px solid var(--primary-soft);
+  color: var(--text);
+  background-color: transparent;
+  font-size: 24px;
+  padding: 2rem 2rem 2rem 6rem;
+  border-radius: 1rem;
+  background-image: url("/icons/search-icon.svg");
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  background-position: 2rem;
+}
+
+.searcher::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  .searcher {
+    padding: 1rem 1rem 1rem 4rem;
+    background-position: 1rem;
+  }
+}

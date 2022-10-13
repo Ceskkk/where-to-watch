@@ -1,0 +1,57 @@
+@font-face {
+  font-family: "Netflix Sans";
+  font-weight: 400;
+  src: url("/fonts/NetflixSans_W_Rg.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Netflix Sans";
+  font-weight: 600;
+  src: url("/fonts/NetflixSans_W_Md.woff2") format("woff2");
+}
+
+:root {
+  --primary-soft: #161d2f;
+  --primary: #10141f;
+
+  --text: #fff;
+
+  --mobile-breakpoint: 600px;
+  --tablet-breakpoint: 1280px;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Netflix Sans", -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  background-color: var(--primary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  font-family: "Netflix Sans", -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: white;
+    background: black;
+  }
+} */

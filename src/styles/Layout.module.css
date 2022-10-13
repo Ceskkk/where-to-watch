@@ -1,0 +1,23 @@
+.main {
+  display: flex;
+  flex-flow: column nowrap;
+  width: calc(100vw - 12rem);
+  min-height: calc(100vh - 4rem);
+  margin: 2rem 2rem 2rem 10rem;
+}
+
+@media (max-width: 1280px) {
+  .main {
+    width: calc(100vw - 4rem);
+    min-height: calc(100vh - 12rem);
+    margin: 10rem 2rem 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    width: calc(100vw - 2rem);
+    min-height: calc(100vh - 7rem);
+    margin: 6rem 1rem 1rem;
+  }
+}
