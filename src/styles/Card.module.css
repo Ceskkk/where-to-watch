@@ -1,0 +1,36 @@
+.card {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.card > header {
+  position: relative;
+}
+
+.card > header > span {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.card > header > div {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0.7rem;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.card > footer {
+  padding: 0.5rem 0.5rem 0;
+}
+
+.card > footer > span {
+  font-size: 14px;
+}
+
+.card > footer > h3 {
+  margin: 0.5rem 0 0;
+}

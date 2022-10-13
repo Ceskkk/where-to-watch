@@ -1,11 +1,11 @@
+import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
 
-import { MenuItem } from "../types"
+import { TMenuItem } from "../types"
 import styles from "../styles/Menu.module.css"
-import { useRouter } from "next/router"
 
-const menuItems: Array<MenuItem> = [
+const menuItems: Array<TMenuItem> = [
   {
     name: "Movies",
     link: "/movies",
@@ -19,7 +19,7 @@ const menuItems: Array<MenuItem> = [
   {
     name: "Bookmarks",
     link: "/bookmarks",
-    icon: "/icons/saved-bookmark-icon.svg"
+    icon: "/icons/checked-bookmark-icon.svg"
   }
 ]
 

@@ -4,7 +4,7 @@
   outline: 4px solid var(--primary-soft);
   color: var(--text);
   background-color: transparent;
-  font-size: 24px;
+  font-size: 20px;
   padding: 2rem 2rem 2rem 6rem;
   border-radius: 1rem;
   background-image: url("/icons/search-icon.svg");

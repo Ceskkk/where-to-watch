@@ -14,10 +14,31 @@
   --primary-soft: #161d2f;
   --primary: #10141f;
 
+  --secondary-soft: #fc9b9b;
+  --secondary: #ff4344;
+
   --text: #fff;
 
   --mobile-breakpoint: 600px;
-  --tablet-breakpoint: 1280px;
+  --tablet-breakpoint: 1025px;
+  --desktops-breakpoint: 1201px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: var(--primary-soft);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Netflix Sans", -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
 }
 
 html,
@@ -28,6 +49,7 @@ body {
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
   background-color: var(--primary);
+  color: var(--text);
 }
 
 a {
@@ -36,22 +58,6 @@ a {
   display: flex;
 }
 
-* {
-  box-sizing: border-box;
+h1 {
+  margin: 2rem 0;
 }
-
-input {
-  font-family: "Netflix Sans", -apple-system, BlinkMacSystemFont, Segoe UI,
-    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serif;
-}
-
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-} */
