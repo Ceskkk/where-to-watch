@@ -1,18 +1,23 @@
 .card {
   display: flex;
   flex-flow: column nowrap;
-}
-
-.card > header {
   position: relative;
 }
 
-.card > header > span {
+.card:hover {
+  background-color: black;
+}
+
+.card > a > header > span {
   border-radius: 0.5rem;
   overflow: hidden;
 }
 
-.card > header > div {
+.card:hover > a > header > span {
+  opacity: 0.5 !important;
+}
+
+.card > a > header > div {
   position: absolute;
   right: 1rem;
   top: 1rem;
@@ -21,16 +26,30 @@
   padding: 0.7rem;
   border-radius: 100%;
   cursor: pointer;
+  transition: opacity 0.4s;
+  opacity: 0;
 }
 
-.card > footer {
-  padding: 0.5rem 0.5rem 0;
+.card:hover > a > header > div {
+  opacity: 1;
 }
 
-.card > footer > span {
+.card > a > footer {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  transition: opacity 0.4s;
+  opacity: 0;
+}
+
+.card:hover > a > footer {
+  opacity: 1;
+}
+
+.card > a > footer > span {
   font-size: 14px;
 }
 
-.card > footer > h3 {
+.card > a > footer > h3 {
   margin: 0.5rem 0 0;
 }

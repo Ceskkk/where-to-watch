@@ -1,15 +1,15 @@
 [
   {
     "id": 1,
-    "title": "Dahmer",
-    "type": "TV Series",
+    "title": "Pepito",
+    "type": "Movie",
     "year": 2022,
-    "image": "/testCard.jpg"
+    "image": "/testCard2.jpg"
   },
   {
     "id": 2,
     "title": "Dahmer",
-    "type": "TV Series",
+    "type": "Movie",
     "year": 2022,
     "image": "/testCard.jpg"
   },
@@ -23,7 +23,7 @@
   {
     "id": 4,
     "title": "Dahmer",
-    "type": "TV Series",
+    "type": "Movie",
     "year": 2022,
     "image": "/testCard.jpg"
   },

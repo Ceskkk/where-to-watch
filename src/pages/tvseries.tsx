@@ -3,18 +3,18 @@ import type { GetStaticProps, NextPage } from "next"
 import { IAudiovisual } from "../types"
 import CardList from "../components/CardList"
 import Searcher from "../components/Searcher"
-import { getAllAudiovisuals } from "../services/audiovisuals"
+import { getAudiovisualsByType } from "../services/audiovisuals"
 
 interface Props {
   audiovisuals: Array<IAudiovisual>
 }
 
-const Home: NextPage<Props> = ({ audiovisuals }) => {
+const TvSeries: NextPage<Props> = ({ audiovisuals }) => {
   return (
     <>
       <Searcher />
       <section>
-        <h1>Recommended for you</h1>
+        <h1>TV Series</h1>
         <CardList audiovisuals={audiovisuals} />
       </section>
     </>
@@ -22,7 +22,7 @@ const Home: NextPage<Props> = ({ audiovisuals }) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const audiovisuals: Array<IAudiovisual> = getAllAudiovisuals()
+  const audiovisuals: Array<IAudiovisual> = getAudiovisualsByType("TV Series")
 
   return {
     props: {
@@ -31,4 +31,4 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-export default Home
+export default TvSeries

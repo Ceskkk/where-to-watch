@@ -9,12 +9,12 @@ interface Props {
   audiovisuals: Array<IAudiovisual>
 }
 
-const Home: NextPage<Props> = ({ audiovisuals }) => {
+const Bookmarks: NextPage<Props> = ({ audiovisuals }) => {
   return (
     <>
       <Searcher />
       <section>
-        <h1>Recommended for you</h1>
+        <h1>Bookmarkeds</h1>
         <CardList audiovisuals={audiovisuals} />
       </section>
     </>
@@ -31,4 +31,4 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
-export default Home
+export default Bookmarks
