@@ -11,3 +11,12 @@ export type TMenuItem = {
   link: string
   icon: string
 }
+
+export interface IFormFields {
+  email: string
+  password: string
+}
+
+export interface IRegisterFormFields extends IFormFields {
+  confirmPassword: string
+}

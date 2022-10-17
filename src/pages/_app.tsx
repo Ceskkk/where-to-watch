@@ -1,14 +1,23 @@
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app"
 
-import Layout from '../components/Layout'
-import '../styles/globals.css'
+import Layout from "../components/Layout"
+import { AuthProvider } from "../contexts/AuthContext"
+import "../styles/globals.css"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthProvider>
   )
 }
 
 export default MyApp
+
+// TODO: Add auth
+// TODO: Make bookmarks work
+// TODO: Add real data
+// TODO: Create audiovisual single page
+// TODO: Animations on rerender cards

@@ -6,6 +6,10 @@
   margin: 2rem 2rem 2rem 10rem;
 }
 
+.main > h1 {
+  margin-top: 0;
+}
+
 @media (max-width: 1201px) {
   .main {
     width: calc(100vw - 4rem);
