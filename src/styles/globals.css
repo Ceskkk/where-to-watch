@@ -94,3 +94,25 @@ button:hover {
   border-color: var(--secondary-soft);
   background-color: var(--secondary-soft);
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+form > label:not(:nth-of-type(1)) {
+  margin-top: 2rem;
+}
+
+form > span {
+  margin-top: 1rem;
+}
+
+form > span.error {
+  color: var(--warning);
+}
+
+form > button {
+  margin-top: 2rem;
+}

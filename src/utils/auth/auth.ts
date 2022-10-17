@@ -15,16 +15,17 @@ export const createAccount = async (
   }
 }
 
-// const signIn = async () => {
-//   try {
-//     await auth.signInWithEmailAndPassword(
-//       emailRef.current!.value,
-//       passwordRef.current!.value
-//     );
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+export const signIn = async (user: IFormFields): Promise<void | string> => {
+  try {
+    await auth.signInWithEmailAndPassword(user.email, user.password)
+  } catch (e: any) {
+    if (e.code == "auth/user-not-found") {
+      return "This user does not exist"
+    } else {
+      return "Server error, try again later"
+    }
+  }
+}
 
 export const signOut = async () => {
   await auth.signOut()
