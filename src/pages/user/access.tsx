@@ -1,9 +1,11 @@
 import LoginForm from "../../components/forms/LoginForm"
 import RegisterForm from "../../components/forms/RegisterForm"
 
+import styles from "../../styles/Access.module.css"
+
 export default function Access() {
   return (
-    <>
+    <div className={styles.access}>
       <div>
         <h1>Login</h1>
         <LoginForm />
@@ -12,6 +14,6 @@ export default function Access() {
         <h1>Create new account</h1>
         <RegisterForm />
       </div>
-    </>
+    </div>
   )
 }

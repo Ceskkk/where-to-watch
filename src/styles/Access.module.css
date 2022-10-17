@@ -1,0 +1,15 @@
+.access {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2rem;
+}
+
+.access > div {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 0 auto;
+}
+
+.access > div > h1 {
+  margin-top: 0;
+}
