@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { ChangeEvent, FocusEvent, FormEvent, useState } from "react"
 
 import { IRegisterFormFields } from "../../types"
-import { createAccount } from "../../utils/auth/auth"
+import { createAccount } from "../../services/auth"
 
 export default function RegisterForm() {
   const router = useRouter()

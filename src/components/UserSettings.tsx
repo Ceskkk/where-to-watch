@@ -1,5 +1,5 @@
 import { useContext, FormEvent } from "react"
-import { signOut } from "../utils/auth/auth"
+import { signOut } from "../services/auth"
 
 import { AuthContext } from "../contexts/AuthContext"
 import { useRouter } from "next/router"

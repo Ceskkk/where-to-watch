@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { ChangeEvent, FocusEvent, FormEvent, useState } from "react"
 
 import { IFormFields } from "../../types"
-import { signIn } from "../../utils/auth/auth"
+import { signIn } from "../../services/auth"
 
 export default function LoginForm() {
   const router = useRouter()
