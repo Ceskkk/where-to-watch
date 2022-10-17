@@ -3,7 +3,6 @@ import { ChangeEvent, FocusEvent, FormEvent, useState } from "react"
 
 import { IRegisterFormFields } from "../../types"
 import { createAccount } from "../../utils/auth/auth"
-import styles from "../../styles/forms/RegisterForm.module.css"
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -104,7 +103,7 @@ export default function RegisterForm() {
 
   return (
     <section>
-      <form onSubmit={(e) => registerUser(e)} className={styles.form}>
+      <form onSubmit={(e) => registerUser(e)}>
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -115,7 +114,7 @@ export default function RegisterForm() {
           onBlur={(e) => validateField(e)}
           required
         />
-        {errors.email && <span className={styles.error}>{errors.email}</span>}
+        {errors.email && <span className="error">{errors.email}</span>}
 
         <label htmlFor="password">Password</label>
         <input
@@ -127,9 +126,7 @@ export default function RegisterForm() {
           onBlur={(e) => validateField(e)}
           required
         />
-        {errors.password && (
-          <span className={styles.error}>{errors.password}</span>
-        )}
+        {errors.password && <span className="error">{errors.password}</span>}
 
         <label htmlFor="confirmPassword">Confirm Password</label>
         <input
@@ -142,11 +139,11 @@ export default function RegisterForm() {
           required
         />
         {errors.confirmPassword && (
-          <span className={styles.error}>{errors.confirmPassword}</span>
+          <span className="error">{errors.confirmPassword}</span>
         )}
 
         <button type="submit">Create account</button>
-        {submitError && <span className={styles.error}>{submitError}</span>}
+        {submitError && <span className="error">{submitError}</span>}
         {loading && <span>Creating account ...</span>}
       </form>
     </section>

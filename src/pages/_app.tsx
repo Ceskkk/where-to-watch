@@ -16,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default MyApp
 
-// TODO: Add auth
+// TODO: Restrict pages
+// TODO: Add user config (?)
+// TODO: Change user icon and logout icon
 // TODO: Make bookmarks work
 // TODO: Add real data
 // TODO: Create audiovisual single page

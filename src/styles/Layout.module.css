@@ -6,7 +6,8 @@
   margin: 2rem 2rem 2rem 10rem;
 }
 
-.main > h1 {
+.main > h1,
+.main > h2 {
   margin-top: 0;
 }
 

@@ -60,7 +60,8 @@ a {
   display: grid;
 }
 
-h1 {
+h1,
+h2 {
   margin: 2rem 0;
 }
 
