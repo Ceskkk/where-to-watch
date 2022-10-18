@@ -1,5 +1,5 @@
 import { ref, get, child, set } from "firebase/database"
-import { auth, database } from "../utils/firebase/firebaseConfig"
+import { database } from "../utils/firebase/firebaseConfig"
 
 export async function getBookmarks(userId: string): Promise<number[]> {
   let res: number[] = []

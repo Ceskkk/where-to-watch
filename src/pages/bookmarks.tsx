@@ -3,32 +3,29 @@ import type { GetStaticProps, NextPage } from "next"
 import { IAudiovisual } from "../types"
 import CardList from "../components/CardList"
 import Searcher from "../components/Searcher"
-import { getAllAudiovisuals } from "../services/audiovisuals"
+import { getAudiovisualsById } from "../services/audiovisuals"
+import { useContext, useEffect, useState } from "react"
+import { BookmarkContext } from "../contexts/BookmarkContext"
 
-interface Props {
-  audiovisuals: Array<IAudiovisual>
-}
+const Bookmarks: NextPage = () => {
+  const { bookmarkeds } = useContext(BookmarkContext)
+  const [filteredAudiovisuals, setFilteredAudiovisuals] = useState<
+    IAudiovisual[]
+  >([])
 
-const Bookmarks: NextPage<Props> = ({ audiovisuals }) => {
+  useEffect(() => {
+    bookmarkeds && setFilteredAudiovisuals(getAudiovisualsById(bookmarkeds))
+  }, [bookmarkeds])
+
   return (
     <>
       <Searcher />
       <section>
         <h1>Bookmarkeds</h1>
-        <CardList audiovisuals={audiovisuals} />
+        <CardList audiovisuals={filteredAudiovisuals} />
       </section>
     </>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const audiovisuals: Array<IAudiovisual> = getAllAudiovisuals()
-
-  return {
-    props: {
-      audiovisuals
-    }
-  }
 }
 
 export default Bookmarks
