@@ -1,21 +1,21 @@
-import { MouseEvent, useState } from "react"
+import { MouseEvent, useContext, useState } from "react"
+import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
 
 import { IAudiovisual } from "../types"
+import { BookmarkContext } from "../contexts/BookmarkContext"
 import styles from "../styles/Card.module.css"
 
-interface Props {
-  audiovisual: IAudiovisual
-}
+export default function Card({ audiovisual }: { audiovisual: IAudiovisual }) {
+  const router = useRouter()
+  const { bookmarksLoading, bookmarkeds, handleBookmarkAction } =
+    useContext(BookmarkContext)
 
-export default function Card({ audiovisual }: Props) {
-  const [isHovering, toggleHovered] = useState<boolean>(false)
-  const onMouseEnter = () => toggleHovered(true)
-  const onMouseLeave = () => toggleHovered(false)
-
-  const addToBookmarks = (e: MouseEvent<HTMLDivElement>) => {
+  const handleBookmark = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
+    const res = handleBookmarkAction(audiovisual.id)
+    if (res === false) router.push("/user/access")
   }
 
   return (
@@ -32,21 +32,20 @@ export default function Card({ audiovisual }: Props) {
               priority={true}
             />
             <div
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
-              onClick={(e) => addToBookmarks(e)}
+              onClick={(e) => handleBookmark(e)}
+              style={{ pointerEvents: bookmarksLoading ? "none" : "auto" }}
             >
-              {isHovering ? (
+              {bookmarkeds && bookmarkeds.includes(audiovisual.id) ? (
                 <Image
                   src="/icons/checked-bookmark-icon.svg"
-                  alt="Checked bookmark icon"
+                  alt="Unchecked bookmark icon"
                   width={15}
                   height={15}
                 />
               ) : (
                 <Image
                   src="/icons/unchecked-bookmark-icon.svg"
-                  alt="Unchecked bookmark icon"
+                  alt="Checked bookmark icon"
                   width={15}
                   height={15}
                 />

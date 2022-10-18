@@ -2,21 +2,23 @@ import type { AppProps } from "next/app"
 
 import Layout from "../components/Layout"
 import { AuthProvider } from "../contexts/AuthContext"
+import { BookmarkProvider } from "../contexts/BookmarkContext"
 import "../styles/globals.css"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <BookmarkProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </BookmarkProvider>
     </AuthProvider>
   )
 }
 
 export default MyApp
 
-// TODO: Change user icon and logout icon
 // TODO: Restrict pages
 // TODO: Add user config (?)
 // TODO: Make bookmarks work

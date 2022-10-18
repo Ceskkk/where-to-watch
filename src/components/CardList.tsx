@@ -10,7 +10,9 @@ export default function CardList({ audiovisuals }: Props) {
   return (
     <section className={styles.list}>
       {audiovisuals && audiovisuals.length > 0 ? (
-        audiovisuals.map((card) => <Card key={card.id} audiovisual={card} />)
+        audiovisuals.map((audiovisual) => (
+          <Card key={audiovisual.id} audiovisual={audiovisual} />
+        ))
       ) : (
         <h1>There are no movies or TV Shows to display</h1>
       )}
