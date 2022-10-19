@@ -14,7 +14,7 @@ const Home: NextPage<Props> = ({ audiovisuals }) => {
     <>
       <Searcher />
       <section>
-        <h1>Recommended for you</h1>
+        <h1>News</h1>
         <CardList audiovisuals={audiovisuals} />
       </section>
     </>

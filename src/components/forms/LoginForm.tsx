@@ -1,5 +1,5 @@
-import { useRouter } from "next/router"
 import { ChangeEvent, FocusEvent, FormEvent, useState } from "react"
+import { useRouter } from "next/router"
 
 import { IFormFields } from "../../types"
 import { signIn } from "../../services/auth"

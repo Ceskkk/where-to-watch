@@ -1,5 +1,5 @@
-import firebase from "firebase/compat/app"
 import { getDatabase } from "firebase/database"
+import firebase from "firebase/compat/app"
 import "firebase/compat/auth"
 
 const firebaseConfig = {

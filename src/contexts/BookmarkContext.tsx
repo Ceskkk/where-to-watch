@@ -5,6 +5,7 @@ import {
   useEffect,
   useState
 } from "react"
+
 import { AuthContext } from "./AuthContext"
 import { addBookmark, getBookmarks, removeBookmark } from "../services/database"
 import { auth } from "../utils/firebase/firebaseConfig"
@@ -30,8 +31,8 @@ export const BookmarkProvider = ({ children }: { children: ReactNode }) => {
     undefined
   )
 
-  const updateContextBookmarks = (userId?: string) => {
-    getBookmarks(user?.uid || userId || "").then((res) => {
+  const updateContextBookmarks = (userId: string) => {
+    getBookmarks(userId).then((res) => {
       setBookmarkeds(res)
       setBookmarksLoading(false)
     })
@@ -42,16 +43,20 @@ export const BookmarkProvider = ({ children }: { children: ReactNode }) => {
     if (!user) return false
     else if (bookmarkeds?.includes(audiovisualId)) {
       removeBookmark(user.uid, audiovisualId).then(() =>
-        updateContextBookmarks()
+        updateContextBookmarks(user.uid)
       )
     } else {
-      addBookmark(user.uid, audiovisualId).then(() => updateContextBookmarks())
+      addBookmark(user.uid, audiovisualId).then(() =>
+        updateContextBookmarks(user.uid)
+      )
     }
   }
 
   useEffect(() => {
     return auth.onAuthStateChanged((firebaseUser) => {
-      firebaseUser && updateContextBookmarks(firebaseUser.uid)
+      firebaseUser
+        ? updateContextBookmarks(firebaseUser.uid)
+        : setBookmarkeds([])
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

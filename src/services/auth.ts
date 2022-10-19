@@ -1,5 +1,5 @@
-import { auth } from "../utils/firebase/firebaseConfig"
 import { IFormFields } from "../types"
+import { auth } from "../utils/firebase/firebaseConfig"
 
 export const createAccount = async (
   user: IFormFields

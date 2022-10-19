@@ -1,4 +1,5 @@
 import { ref, get, child, set } from "firebase/database"
+
 import { database } from "../utils/firebase/firebaseConfig"
 
 export async function getBookmarks(userId: string): Promise<number[]> {
@@ -49,5 +50,3 @@ export async function removeBookmark(userId: string, audiovisualId: number) {
       console.error(e)
     })
 }
-
-// TODO: Poner bien los permisos en la bbddd

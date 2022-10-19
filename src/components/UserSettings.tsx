@@ -1,8 +1,8 @@
 import { useContext, FormEvent } from "react"
-import { signOut } from "../services/auth"
-
-import { AuthContext } from "../contexts/AuthContext"
 import { useRouter } from "next/router"
+
+import { signOut } from "../services/auth"
+import { AuthContext } from "../contexts/AuthContext"
 
 export default function UserSettings() {
   const router = useRouter()

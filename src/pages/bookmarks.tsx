@@ -1,10 +1,10 @@
-import type { GetStaticProps, NextPage } from "next"
+import { useContext, useEffect, useState } from "react"
+import type { NextPage } from "next"
 
 import { IAudiovisual } from "../types"
 import CardList from "../components/CardList"
 import Searcher from "../components/Searcher"
 import { getAudiovisualsById } from "../services/audiovisuals"
-import { useContext, useEffect, useState } from "react"
 import { BookmarkContext } from "../contexts/BookmarkContext"
 
 const Bookmarks: NextPage = () => {

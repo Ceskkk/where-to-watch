@@ -21,7 +21,6 @@ export default MyApp
 
 // TODO: Restrict pages
 // TODO: Add user config (?)
-// TODO: Make bookmarks work
 // TODO: Add real data
 // TODO: Create audiovisual single page
 // TODO: Animations on rerender cards
