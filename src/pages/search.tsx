@@ -6,6 +6,7 @@ import { IAudiovisual } from "../types"
 import Searcher from "../components/Searcher"
 import CardList from "../components/CardList"
 import { getAllAudiovisuals, getAudiovisualsByTitle } from "../services/audiovisuals"
+import Layout from "../layouts/Layout"
 
 interface Props {
   audiovisuals: Array<IAudiovisual>
@@ -20,7 +21,7 @@ const Search: NextPage<Props> = ({ audiovisuals }) => {
   const { title } = router.query
 
   return (
-    <>
+    <Layout title="Where to watch | Search">
       <Searcher />
       <section>
         <h1>
@@ -28,7 +29,7 @@ const Search: NextPage<Props> = ({ audiovisuals }) => {
         </h1>
         <CardList audiovisuals={audiovisuals} />
       </section>
-    </>
+    </Layout>
   )
 }
 

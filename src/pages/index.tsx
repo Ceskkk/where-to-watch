@@ -4,6 +4,7 @@ import { IAudiovisual } from "../types"
 import CardList from "../components/CardList"
 import Searcher from "../components/Searcher"
 import { getAllAudiovisuals } from "../services/audiovisuals"
+import Layout from "../layouts/Layout"
 
 interface Props {
   audiovisuals: Array<IAudiovisual>
@@ -11,13 +12,13 @@ interface Props {
 
 const Home: NextPage<Props> = ({ audiovisuals }) => {
   return (
-    <>
+    <Layout title="Where to watch | News">
       <Searcher />
       <section>
         <h1>News</h1>
         <CardList audiovisuals={audiovisuals} />
       </section>
-    </>
+    </Layout>
   )
 }
 
