@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app"
 
-import Layout from "../components/Layout"
+import Layout from "../layouts/Layout"
+import RouterProtector from "../layouts/RouterProtector"
 import { AuthProvider } from "../contexts/AuthContext"
 import { BookmarkProvider } from "../contexts/BookmarkContext"
 import "../styles/globals.css"
@@ -9,9 +10,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <BookmarkProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <RouterProtector>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </RouterProtector>
       </BookmarkProvider>
     </AuthProvider>
   )
@@ -19,7 +22,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
 export default MyApp
 
-// TODO: Restrict pages
 // TODO: Add user config (?)
 // TODO: Add real data
 // TODO: Create audiovisual single page

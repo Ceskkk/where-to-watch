@@ -1,12 +1,9 @@
 import { ChangeEvent, FocusEvent, FormEvent, useState } from "react"
-import { useRouter } from "next/router"
 
 import { IRegisterFormFields } from "../../types"
 import { createAccount } from "../../services/auth"
 
 export default function RegisterForm() {
-  const router = useRouter()
-
   const [fields, setFields] = useState<IRegisterFormFields>({
     email: "",
     password: "",
@@ -90,8 +87,6 @@ export default function RegisterForm() {
       await createAccount(fields).then((res) => {
         if (typeof res === "string") {
           setSubmitError(res)
-        } else {
-          router.push("/")
         }
       })
     } else {

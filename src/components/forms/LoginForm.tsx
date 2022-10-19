@@ -1,12 +1,9 @@
 import { ChangeEvent, FocusEvent, FormEvent, useState } from "react"
-import { useRouter } from "next/router"
 
 import { IFormFields } from "../../types"
 import { signIn } from "../../services/auth"
 
 export default function LoginForm() {
-  const router = useRouter()
-
   const [fields, setFields] = useState<IFormFields>({
     email: "",
     password: ""
@@ -71,8 +68,6 @@ export default function LoginForm() {
       await signIn(fields).then((res) => {
         if (typeof res === "string") {
           setSubmitError(res)
-        } else {
-          router.push("/")
         }
       })
     } else {
