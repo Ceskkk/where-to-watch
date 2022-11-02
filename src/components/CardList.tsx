@@ -2,17 +2,17 @@ import Card from "./Card"
 import { IAudiovisual } from "../types"
 import styles from "../styles/CardList.module.css"
 
-interface Props {
-  audiovisuals: Array<IAudiovisual>
-}
-
-export default function CardList({ audiovisuals }: Props) {
+export default function CardList({
+  audiovisuals
+}: {
+  audiovisuals: IAudiovisual[]
+}) {
   return (
     <section className={styles.list}>
       {audiovisuals &&
         audiovisuals.length > 0 &&
-        audiovisuals.map((audiovisual) => (
-          <Card key={audiovisual.id} audiovisual={audiovisual} />
+        audiovisuals.map((audiovisual, index) => (
+          <Card key={index} audiovisual={audiovisual} />
         ))}
     </section>
   )

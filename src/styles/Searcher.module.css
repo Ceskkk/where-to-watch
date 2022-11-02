@@ -1,4 +1,8 @@
 .searcher {
+  position: relative;
+}
+
+.searcher > input {
   font-size: 20px;
   width: 100%;
   padding: 2rem 2rem 2rem 6rem;
@@ -8,14 +12,27 @@
   background-position: 2rem;
 }
 
-.searcher::placeholder {
+.searcher > input::placeholder {
   color: var(--text);
   opacity: 0.6;
 }
 
+.searcher > button {
+  position: absolute;
+  right: 1rem;
+  top: -0.5rem;
+  padding: 0.5rem 1rem;
+}
+
 @media (max-width: 600px) {
-  .searcher {
+  .searcher > input {
     padding: 1rem 1rem 1rem 4rem;
     background-position: 1rem;
+  }
+  .searcher > button {
+    position: absolute;
+    right: 1rem;
+    top: -1.5rem;
+    padding: 0.5rem 1rem;
   }
 }

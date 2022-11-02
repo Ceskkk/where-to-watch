@@ -1,34 +1,56 @@
-import type { GetStaticProps, NextPage } from "next"
+import { useState } from "react"
+import type { GetServerSideProps, NextPage } from "next"
 
-import { IAudiovisual } from "../types"
+import Layout from "../layouts/Layout"
 import CardList from "../components/CardList"
 import Searcher from "../components/Searcher"
-import { getAllAudiovisuals } from "../services/audiovisuals"
-import Layout from "../layouts/Layout"
+import {
+  getDailyTrendingAudiovisuals,
+  getWeeklyTrendingAudiovisuals
+} from "../services/audiovisuals"
+import { IAudiovisual } from "../types"
 
 interface Props {
-  audiovisuals: Array<IAudiovisual>
+  dailyAudiovisuals: IAudiovisual[]
+  weeklyAudiovisuals: IAudiovisual[]
 }
 
-const Home: NextPage<Props> = ({ audiovisuals }) => {
+const Home: NextPage<Props> = ({ dailyAudiovisuals, weeklyAudiovisuals }) => {
+  const [showDaily, toggleAudiovisuals] = useState<boolean>(true)
+
   return (
-    <Layout title="Where to watch | News">
+    <Layout title="Where to watch | Tendencias">
       <Searcher />
       <section>
-        <h1>News</h1>
-        <CardList audiovisuals={audiovisuals} />
+        <header>
+          <h1>Tendencias</h1>
+          <div
+            className="toggler"
+            onClick={() => toggleAudiovisuals(!showDaily)}
+          >
+            <h3>Hoy</h3>
+            <h3>Esta semana</h3>
+            <div
+              className={`togglerBackground ${showDaily ? "left" : "right"}`}
+            ></div>
+          </div>
+        </header>
+        <CardList
+          audiovisuals={showDaily ? dailyAudiovisuals : weeklyAudiovisuals}
+        />
       </section>
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const audiovisuals: Array<IAudiovisual> = getAllAudiovisuals()
+export const getServerSideProps: GetServerSideProps = async () => {
+  const dailyAudiovisuals: Array<IAudiovisual> =
+    await getDailyTrendingAudiovisuals()
+  const weeklyAudiovisuals: Array<IAudiovisual> =
+    await getWeeklyTrendingAudiovisuals()
 
   return {
-    props: {
-      audiovisuals
-    }
+    props: { dailyAudiovisuals, weeklyAudiovisuals }
   }
 }
 

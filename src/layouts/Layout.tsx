@@ -1,5 +1,5 @@
-import Head from "next/head"
 import { ReactNode } from "react"
+import Head from "next/head"
 
 import Menu from "../components/Menu"
 import styles from "../styles/Layout.module.css"
@@ -13,7 +13,7 @@ interface Props {
 export default function Layout({
   children,
   title = "Where to watch",
-  description = "The streaming guide"
+  description = "Buscador de películas y series en plataformas streaming"
 }: Props) {
   return (
     <>

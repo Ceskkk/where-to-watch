@@ -23,6 +23,7 @@
 
 .menu > li:nth-last-of-type(1) {
   margin-top: auto;
+  cursor: pointer;
 }
 
 .menu > li:not(:nth-of-type(1)):not(:nth-last-of-type(1)) {

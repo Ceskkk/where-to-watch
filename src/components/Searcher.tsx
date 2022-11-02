@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react"
+import { FormEvent, useState } from "react"
 import { useRouter } from "next/router"
 
 import styles from "../styles/Searcher.module.css"
@@ -7,21 +7,34 @@ export default function Searcher() {
   const router = useRouter()
   const { title } = router.query
 
-  const pushTitleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    router.push(`/search/?title=${e.target.value}`)
+  const [titleValue, setTitleValue] = useState<string>(title as string)
+
+  const pushTitleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    router.push(
+      {
+        pathname: "/buscar",
+        query: `title=${
+          (e.currentTarget.elements[0] as HTMLInputElement).value
+        }`
+      },
+      "/buscar"
+    )
   }
 
   return (
     <>
-      <input
-        autoFocus
-        onChange={(e) => pushTitleSearch(e)}
-        value={title}
-        name="title"
-        type="text"
-        placeholder="Search for movies or TV series"
-        className={styles.searcher}
-      />
+      <form onSubmit={(e) => pushTitleSearch(e)} className={styles.searcher}>
+        <input
+          autoFocus
+          defaultValue={titleValue}
+          onChange={(e) => setTitleValue(e.target.value)}
+          name="title"
+          type="text"
+          placeholder="Busca películas o series"
+        />
+        <button>Buscar</button>
+      </form>
     </>
   )
 }

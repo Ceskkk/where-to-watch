@@ -1,33 +1,29 @@
-import { useContext } from "react"
 import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
 
 import { TMenuItem } from "../types"
-import { AuthContext } from "../contexts/AuthContext"
 import styles from "../styles/Menu.module.css"
 
 const menuItems: Array<TMenuItem> = [
   {
-    name: "Movies",
-    link: "/movies",
+    name: "Películas",
+    link: "/peliculas",
     icon: "/icons/film-movie-icon.svg"
   },
   {
-    name: "TV Series",
-    link: "/tvseries",
+    name: "Series",
+    link: "/series",
     icon: "/icons/tvseries-icon.svg"
-  },
-  {
-    name: "Bookmarks",
-    link: "/bookmarks",
-    icon: "/icons/checked-bookmark-icon.svg"
   }
 ]
 
 export default function Menu() {
   const router = useRouter()
-  const user = useContext(AuthContext)
+
+  const goTop = () => {
+    window.scrollTo(0, 0)
+  }
 
   return (
     <nav className={styles.menu}>
@@ -36,7 +32,7 @@ export default function Menu() {
           <a>
             <Image
               src="/icons/four-squares-icon.svg"
-              alt={"movies icon"}
+              alt={"Icono cuatro cuadrados"}
               width={30}
               height={30}
             />
@@ -54,7 +50,7 @@ export default function Menu() {
             <a>
               <Image
                 src={item.icon}
-                alt={`${item.name} icon`}
+                alt={`Icono de ${item.name}`}
                 width={20}
                 height={20}
               />
@@ -62,26 +58,13 @@ export default function Menu() {
           </Link>
         </li>
       ))}
-      <li>
-        <Link href={user ? "/user/settings" : "/user/access"} passHref>
-          <a>
-            {user ? (
-              <Image
-                src="/icons/settings-icon.svg"
-                alt={"logout icon"}
-                width={30}
-                height={30}
-              />
-            ) : (
-              <Image
-                src="/icons/user-profile-icon.svg"
-                alt={"user icon"}
-                width={30}
-                height={30}
-              />
-            )}
-          </a>
-        </Link>
+      <li onClick={goTop}>
+        <Image
+          src="/icons/arrow-top.svg"
+          alt={"Flecha arriba"}
+          width={30}
+          height={30}
+        />
       </li>
     </nav>
   )
