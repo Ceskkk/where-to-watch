@@ -8,11 +8,11 @@ import {
   getDailyTrendingAudiovisuals,
   getWeeklyTrendingAudiovisuals
 } from "../services/audiovisuals"
-import { IAudiovisual } from "../types"
+import { IMovie, ISerie } from "../types"
 
 interface Props {
-  dailyAudiovisuals: IAudiovisual[]
-  weeklyAudiovisuals: IAudiovisual[]
+  dailyAudiovisuals: (IMovie | ISerie)[]
+  weeklyAudiovisuals: (IMovie | ISerie)[]
 }
 
 const Home: NextPage<Props> = ({ dailyAudiovisuals, weeklyAudiovisuals }) => {
@@ -44,9 +44,9 @@ const Home: NextPage<Props> = ({ dailyAudiovisuals, weeklyAudiovisuals }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const dailyAudiovisuals: Array<IAudiovisual> =
+  const dailyAudiovisuals: (IMovie | ISerie)[] =
     await getDailyTrendingAudiovisuals()
-  const weeklyAudiovisuals: Array<IAudiovisual> =
+  const weeklyAudiovisuals: (IMovie | ISerie)[] =
     await getWeeklyTrendingAudiovisuals()
 
   return {

@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from "next"
 import { useRouter } from "next/router"
 import { ParsedUrlQuery } from "querystring"
 
-import { IAudiovisual } from "../types"
+import { IMovie, ISerie } from "../types"
 import { getAudiovisualsByTitle } from "../services/audiovisuals"
 import Layout from "../layouts/Layout"
 import Searcher from "../components/Searcher"
@@ -11,7 +11,7 @@ import CardList from "../components/CardList"
 import useInfiniteScroll from "../hooks/useInfiniteScroll"
 
 interface Props {
-  audiovisuals: Array<IAudiovisual>
+  audiovisuals: (IMovie | ISerie)[]
 }
 
 interface IParams extends ParsedUrlQuery {
@@ -23,12 +23,12 @@ const Search: NextPage<Props> = ({ audiovisuals }) => {
   const { title } = router.query
 
   const [moreAudiovisuals, setMoreAudiovisuals] =
-    useState<IAudiovisual[]>(audiovisuals)
+    useState<(IMovie | ISerie)[]>(audiovisuals)
 
   const { isLoading, page } = useInfiniteScroll(loadMore)
 
   async function loadMore() {
-    const audiovisuals: IAudiovisual[] = await getAudiovisualsByTitle(
+    const audiovisuals: (IMovie | ISerie)[] = await getAudiovisualsByTitle(
       page,
       title as string
     )
@@ -50,7 +50,10 @@ const Search: NextPage<Props> = ({ audiovisuals }) => {
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const { title } = params.query as IParams
-  const audiovisuals: IAudiovisual[] = await getAudiovisualsByTitle(1, title)
+  const audiovisuals: (IMovie | ISerie)[] = await getAudiovisualsByTitle(
+    1,
+    title
+  )
 
   if (audiovisuals) return { props: { key: title, audiovisuals } }
 

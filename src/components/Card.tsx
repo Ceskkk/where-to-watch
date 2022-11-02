@@ -1,18 +1,30 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { IAudiovisual } from "../types"
+import { IMovie, ISerie } from "../types"
+import { isMovie } from "../types/guards"
 import styles from "../styles/Card.module.css"
 
-export default function Card({ audiovisual }: { audiovisual: IAudiovisual }) {
+export default function Card({
+  audiovisual
+}: {
+  audiovisual: IMovie | ISerie
+}) {
   return (
     <article className={styles.card}>
-      <Link href={`/audiovisuals/${audiovisual.id}`} passHref>
+      <Link
+        href={`/${isMovie(audiovisual) ? "pelicula" : "serie"}/${
+          audiovisual.id
+        }`}
+        passHref
+      >
         <a>
           <header>
             <Image
               src={`${process.env.NEXT_PUBLIC_THEMOVIEDB_API_IMAGES_URL}${audiovisual.poster_path}`}
-              alt={`Portada de ${audiovisual.title || audiovisual.name}`}
+              alt={`Portada de ${
+                isMovie(audiovisual) ? audiovisual.title : audiovisual.name
+              }`}
               width={300}
               height={450}
               layout="responsive"
@@ -21,11 +33,15 @@ export default function Card({ audiovisual }: { audiovisual: IAudiovisual }) {
           </header>
           <footer>
             <span>
-              {audiovisual.release_date || audiovisual.first_air_date}
+              {isMovie(audiovisual)
+                ? audiovisual.release_date
+                : audiovisual.first_air_date}
             </span>
             <span> · </span>
-            <span>{audiovisual.title ? "Película" : "Serie"}</span>
-            <h3>{audiovisual.title || audiovisual.name}</h3>
+            <span>{isMovie(audiovisual) ? "Película" : "Serie"}</span>
+            <h3>
+              {isMovie(audiovisual) ? audiovisual.title : audiovisual.name}
+            </h3>
           </footer>
         </a>
       </Link>
