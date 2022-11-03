@@ -1,22 +1,38 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { useRouter } from "next/router"
 
+import Layout from "../../../layouts/Layout"
+import SingleHeader from "../../../components/SingleHeader"
+import SingleFooter from "../../../components/SingleFooter"
 import {
   getPopularMovies,
   getDailyTrendingAudiovisuals,
   getWeeklyTrendingAudiovisuals,
-  getMovieById
+  getMovieById,
+  getMovieProvidersById
 } from "../../../services/audiovisuals"
-import { IMovie, ISerie, ISingleMovie } from "../../../types"
+import { IMovie, IProviders, ISerie, ISingleMovie } from "../../../types"
 
-const SingleMovie: NextPage<ISingleMovie> = (movie) => {
+interface Props {
+  movie: ISingleMovie
+  providers: IProviders
+}
+
+const SingleMovie: NextPage<Props> = ({ movie, providers }) => {
   const router = useRouter()
 
   if (router.isFallback) {
     return <div>Loading...</div>
   }
 
-  return <h1>{movie.title}</h1>
+  return (
+    <Layout title={`Where to watch | ${movie.title}`}>
+      <section>
+        <SingleHeader movie={movie} />
+        <SingleFooter providers={providers} />
+      </section>
+    </Layout>
+  )
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -44,9 +60,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params!
 
   const movie: ISingleMovie = await getMovieById(Number(id))
+  const providers: IProviders[] | null = await getMovieProvidersById(Number(id))
 
   return {
-    props: movie
+    props: { movie, providers }
   }
 }
 

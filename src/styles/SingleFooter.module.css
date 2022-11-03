@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2rem;
+  padding: 2rem;
+  margin-top: 2rem;
+  background-color: var(--primary-soft);
+  border-radius: 2rem;
+}
+
+.container > h3 {
+  margin: 0;
+  cursor: pointer;
+}
+
+.container > h3.active {
+  pointer-events: none;
+}
+
+.container > h3.active,
+.container > h3:hover {
+  color: var(--secondary);
+}
+
+.container > section {
+  width: 100%;
+}
+
+.container > section > div {
+  display: none;
+  gap: 1rem;
+}
+
+.container > section > div.active {
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 1rem;
+  }
+  .container > section > div {
+    justify-content: center;
+  }
+}

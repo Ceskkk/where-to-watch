@@ -21,7 +21,7 @@ export default function Card({
         <a>
           <header>
             <Image
-              src={`${process.env.NEXT_PUBLIC_THEMOVIEDB_API_IMAGES_URL}${audiovisual.poster_path}`}
+              src={`${process.env.NEXT_PUBLIC_THEMOVIEDB_API_IMAGES_URL}/w300/${audiovisual.poster_path}`}
               alt={`Portada de ${
                 isMovie(audiovisual) ? audiovisual.title : audiovisual.name
               }`}

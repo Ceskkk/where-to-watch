@@ -1,0 +1,23 @@
+.header {
+  position: relative;
+}
+
+.header > .background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: calc(450px + 4rem);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 1rem;
+  opacity: 0.3;
+  filter: blur(0.2rem);
+}
+
+.header > .poster {
+  margin: 2rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}

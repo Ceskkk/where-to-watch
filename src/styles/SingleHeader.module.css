@@ -1,0 +1,76 @@
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  position: relative;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.header > .background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: calc(450px + 4rem);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 1rem;
+  opacity: 0.3;
+  filter: blur(0.2rem);
+  z-index: 2;
+}
+
+.header > .poster {
+  display: flex;
+  flex: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.header > .info {
+  display: flex;
+  flex-flow: column nowrap;
+  z-index: 2;
+}
+
+.header > .info > h2 {
+  margin: 0 0 0.5rem;
+}
+
+.header > .info > h3 {
+  margin: 0 0 1rem;
+}
+
+.header > .info > p {
+  margin-top: 0;
+}
+
+.header > .info > i {
+  margin: 0 0 1rem 0;
+  opacity: 0.7;
+}
+
+.header > .info > *:last-child {
+  margin-top: auto;
+  padding-top: 2rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 1025px) {
+  .header {
+    flex-flow: row wrap;
+  }
+  .header > .background {
+    min-height: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    justify-content: center;
+    text-align: center;
+  }
+}

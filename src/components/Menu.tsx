@@ -51,8 +51,8 @@ export default function Menu() {
               <Image
                 src={item.icon}
                 alt={`Icono de ${item.name}`}
-                width={20}
-                height={20}
+                width={30}
+                height={30}
               />
             </a>
           </Link>

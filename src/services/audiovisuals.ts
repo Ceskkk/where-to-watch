@@ -1,4 +1,10 @@
-import { IMovie, ISingleMovie, ISingleSerie, ISerie } from "../types"
+import {
+  IMovie,
+  ISingleMovie,
+  ISingleSerie,
+  ISerie,
+  IProviders
+} from "../types"
 
 const keyParams: string = `api_key=${process.env.NEXT_PUBLIC_THEMOVIEDB_API_KEY}&region=ES&language=es&include_adult=false`
 
@@ -14,7 +20,7 @@ export async function getDailyTrendingAudiovisuals(): Promise<
   (IMovie | ISerie)[]
 > {
   const res: Promise<(IMovie | ISerie)[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}trending/all/day?${keyParams}`
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/trending/all/day?${keyParams}`
   )
     .then((r) => r.json())
     .then((r) => r.results)
@@ -26,7 +32,7 @@ export async function getWeeklyTrendingAudiovisuals(): Promise<
   (IMovie | ISerie)[]
 > {
   const res: Promise<(IMovie | ISerie)[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}trending/all/week?${keyParams}`
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/trending/all/week?${keyParams}`
   )
     .then((r) => r.json())
     .then((r) => r.results)
@@ -36,7 +42,7 @@ export async function getWeeklyTrendingAudiovisuals(): Promise<
 
 export async function getPopularMovies(page: number): Promise<IMovie[]> {
   const res: Promise<IMovie[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}movie/popular?${keyParams}&page=${page}`
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/movie/popular?${keyParams}&page=${page}`
   )
     .then((r) => r.json())
     .then((r) => r.results)
@@ -46,7 +52,7 @@ export async function getPopularMovies(page: number): Promise<IMovie[]> {
 
 export async function getPopularTVSeries(page: number): Promise<ISerie[]> {
   const res: Promise<ISerie[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}tv/popular?${keyParams}&page=${page}`
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/tv/popular?${keyParams}&page=${page}`
   )
     .then((r) => r.json())
     .then((r) => r.results)
@@ -59,7 +65,7 @@ export async function getAudiovisualsByTitle(
   title: string = ""
 ): Promise<(IMovie | ISerie)[]> {
   const res: Promise<(IMovie | ISerie)[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}search/multi?${keyParams}&query=${title}&page=${page}`
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/search/multi?${keyParams}&query=${title}&page=${page}`
   )
     .then((r) => r.json())
     .then((r) => r.results)
@@ -71,7 +77,7 @@ export async function getAudiovisualsByTitle(
 
 export async function getMovieById(id: number): Promise<ISingleMovie> {
   const res: Promise<ISingleMovie> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}movie/${id}?${keyParams}`
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/movie/${id}?${keyParams}`
   ).then((r) => r.json())
 
   return res
@@ -79,8 +85,20 @@ export async function getMovieById(id: number): Promise<ISingleMovie> {
 
 export async function getSerieById(id: number): Promise<ISingleSerie> {
   const res: Promise<ISingleSerie> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}tv/${id}?${keyParams}`
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/tv/${id}?${keyParams}`
   ).then((r) => r.json())
 
   return res
+}
+
+export async function getMovieProvidersById(
+  id: number
+): Promise<IProviders[] | null> {
+  const res: Promise<IProviders[] | null> = await fetch(
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/movie/${id}/watch/providers?${keyParams}`
+  )
+    .then((r) => r.json())
+    .then((r) => r.results.ES)
+
+  return res || null
 }
