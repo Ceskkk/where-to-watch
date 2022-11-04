@@ -102,3 +102,15 @@ export async function getMovieProvidersById(
 
   return res || null
 }
+
+export async function getSerieProvidersById(
+  id: number
+): Promise<IProviders[] | null> {
+  const res: Promise<IProviders[] | null> = await fetch(
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/tv/${id}/watch/providers?${keyParams}`
+  )
+    .then((r) => r.json())
+    .then((r) => r.results.ES)
+
+  return res || null
+}

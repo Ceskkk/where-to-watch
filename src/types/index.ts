@@ -42,7 +42,25 @@ export interface ISingleMovie extends IMovie {
   production_companies?: TProductionCompanies[]
 }
 
-export interface ISingleSerie extends ISerie {}
+export interface ISingleSerie extends ISerie {
+  created_by: TPerson[]
+  episode_run_time: number[]
+  genres: TGenre[]
+  homepage: string
+  in_production: boolean
+  languages: string[]
+  last_air_date: string
+  last_episode_to_air: TEpisode
+  next_episode_to_air?: TEpisode | null
+  networks?: TProductionCompanies[]
+  number_of_episodes?: number
+  number_of_seasons?: number
+  production_companies?: TProductionCompanies[]
+  spoken_languages?: TLanguage[]
+  status?: string
+  tagline?: string
+  type?: string
+}
 
 export interface IProviders {
   link: string
@@ -62,6 +80,29 @@ export enum MEDIA_TYPE {
   MOVIE = "movie",
   TV = "tv",
   PERSON = "person"
+}
+
+export type TEpisode = {
+  air_date: string
+  episode_number: number
+  id: number
+  name: string
+  overview: string
+  production_code: string
+  runtime: number
+  season_number: number
+  show_id: number
+  still_path: string
+  vote_average: number
+  vote_count: number
+}
+
+export type TPerson = {
+  id: number
+  credit_id: string
+  name: string
+  gender: number
+  profile_path: string
 }
 
 export type TGenre = {

@@ -1,18 +1,24 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import Image from "next/image"
 import { useRouter } from "next/router"
 
 import Layout from "../../../layouts/Layout"
+import SingleHeader from "../../../components/SingleHeader"
+import SingleFooter from "../../../components/SingleFooter"
 import {
   getSerieById,
   getPopularTVSeries,
   getDailyTrendingAudiovisuals,
-  getWeeklyTrendingAudiovisuals
+  getWeeklyTrendingAudiovisuals,
+  getSerieProvidersById
 } from "../../../services/audiovisuals"
-import { IMovie, ISerie, ISingleSerie } from "../../../types"
-import styles from "../../../styles/SerieId.module.css"
+import { IMovie, IProviders, ISerie, ISingleSerie } from "../../../types"
 
-const SingleSerie: NextPage<ISingleSerie> = (serie) => {
+interface Props {
+  serie: ISingleSerie
+  providers: IProviders
+}
+
+const SingleSerie: NextPage<Props> = ({ serie, providers }) => {
   const router = useRouter()
 
   if (router.isFallback) {
@@ -22,27 +28,8 @@ const SingleSerie: NextPage<ISingleSerie> = (serie) => {
   return (
     <Layout title={`Where to watch | ${serie.name}`}>
       <section>
-        <header className={styles.header}>
-          <div
-            className={styles.background}
-            style={{
-              backgroundImage: `url(${process.env.NEXT_PUBLIC_THEMOVIEDB_API_IMAGES_URL}/original/${serie.poster_path})`
-            }}
-          />
-          <div className={styles.poster}>
-            <Image
-              src={`${process.env.NEXT_PUBLIC_THEMOVIEDB_API_IMAGES_URL}/w300/${serie.poster_path}`}
-              alt={`Poster de ${serie.name}`}
-              width={300}
-              height={450}
-            />
-          </div>
-          <div>
-            <h1>
-              {serie.name} ({serie.original_name})
-            </h1>
-          </div>
-        </header>
+        <SingleHeader audiovisual={serie} />
+        <SingleFooter providers={providers} />
       </section>
     </Layout>
   )
@@ -73,9 +60,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params!
 
   const serie: ISingleSerie = await getSerieById(Number(id))
+  const providers: IProviders[] | null = await getSerieProvidersById(Number(id))
 
   return {
-    props: serie
+    props: { serie, providers }
   }
 }
 

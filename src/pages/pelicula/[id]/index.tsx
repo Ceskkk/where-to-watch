@@ -28,7 +28,7 @@ const SingleMovie: NextPage<Props> = ({ movie, providers }) => {
   return (
     <Layout title={`Where to watch | ${movie.title}`}>
       <section>
-        <SingleHeader movie={movie} />
+        <SingleHeader audiovisual={movie} />
         <SingleFooter providers={providers} />
       </section>
     </Layout>
