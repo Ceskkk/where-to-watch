@@ -55,6 +55,8 @@
 
 @media (max-width: 600px) {
   .menu {
+    position: sticky;
+    z-index: 9999999;
     left: 0;
     top: 0;
     width: 100%;

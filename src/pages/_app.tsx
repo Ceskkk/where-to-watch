@@ -7,3 +7,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp
+
+// TODO: El buscador funciona pocho. Hace busquedas antiguas. Que orden sigue?
+// TODO: Idea Marlene: Botó de tirar enrrere

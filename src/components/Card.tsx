@@ -22,6 +22,8 @@ export default function Card({ audiovisual }: { audiovisual: IAudiovisual }) {
               height={450}
               layout="responsive"
               priority={true}
+              placeholder="blur"
+              blurDataURL="/skeleton.png"
             />
           </header>
           <footer>

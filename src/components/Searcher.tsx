@@ -26,7 +26,6 @@ export default function Searcher() {
     <>
       <form onSubmit={(e) => pushTitleSearch(e)} className={styles.searcher}>
         <input
-          autoFocus
           defaultValue={titleValue}
           onChange={(e) => setTitleValue(e.target.value)}
           name="title"

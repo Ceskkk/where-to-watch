@@ -30,9 +30,6 @@
     background-position: 1rem;
   }
   .searcher > button {
-    position: absolute;
-    right: 1rem;
-    top: -1.5rem;
-    padding: 0.5rem 1rem;
+    display: none;
   }
 }

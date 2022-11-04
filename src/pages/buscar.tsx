@@ -50,16 +50,19 @@ const Search: NextPage<Props> = ({ audiovisuals }) => {
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const { title } = params.query as IParams
-  const audiovisuals: IAudiovisual[] = await getAudiovisualsByTitle(1, title)
 
-  if (audiovisuals) return { props: { key: title, audiovisuals } }
-
-  return {
-    redirect: {
-      permanent: false,
-      destination: "/"
+  if (!title || title === "") {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      }
     }
   }
+
+  const audiovisuals: IAudiovisual[] = await getAudiovisualsByTitle(1, title)
+
+  return { props: { key: title, audiovisuals } }
 }
 
 export default Search

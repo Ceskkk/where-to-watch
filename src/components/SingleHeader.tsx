@@ -29,7 +29,7 @@ export default function SingleHeader({
 
       <div className={styles.info}>
         <h2>
-          {audiovisual.title}
+          {audiovisual.title}{" "}
           {audiovisual.title !== audiovisual.original_title &&
             `(${audiovisual.original_title})`}
         </h2>
