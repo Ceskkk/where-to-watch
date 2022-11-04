@@ -4,15 +4,12 @@ import type { GetServerSideProps, NextPage } from "next"
 import Layout from "../layouts/Layout"
 import CardList from "../components/CardList"
 import Searcher from "../components/Searcher"
-import {
-  getDailyTrendingAudiovisuals,
-  getWeeklyTrendingAudiovisuals
-} from "../services/audiovisuals"
-import { IMovie, ISerie } from "../types"
+import { getTrending } from "../services/audiovisuals"
+import { IAudiovisual } from "../types"
 
 interface Props {
-  dailyAudiovisuals: (IMovie | ISerie)[]
-  weeklyAudiovisuals: (IMovie | ISerie)[]
+  dailyAudiovisuals: IAudiovisual[]
+  weeklyAudiovisuals: IAudiovisual[]
 }
 
 const Home: NextPage<Props> = ({ dailyAudiovisuals, weeklyAudiovisuals }) => {
@@ -44,10 +41,8 @@ const Home: NextPage<Props> = ({ dailyAudiovisuals, weeklyAudiovisuals }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const dailyAudiovisuals: (IMovie | ISerie)[] =
-    await getDailyTrendingAudiovisuals()
-  const weeklyAudiovisuals: (IMovie | ISerie)[] =
-    await getWeeklyTrendingAudiovisuals()
+  const dailyAudiovisuals: IAudiovisual[] = await getTrending("day")
+  const weeklyAudiovisuals: IAudiovisual[] = await getTrending("week")
 
   return {
     props: { dailyAudiovisuals, weeklyAudiovisuals }

@@ -5,20 +5,24 @@ import Layout from "../../../layouts/Layout"
 import SingleHeader from "../../../components/SingleHeader"
 import SingleFooter from "../../../components/SingleFooter"
 import {
-  getPopularMovies,
-  getDailyTrendingAudiovisuals,
-  getWeeklyTrendingAudiovisuals,
-  getMovieById,
-  getMovieProvidersById
+  getById,
+  getPopular,
+  getProvidersById,
+  getTrending
 } from "../../../services/audiovisuals"
-import { IMovie, IProviders, ISerie, ISingleMovie } from "../../../types"
+import {
+  IAudiovisual,
+  IProviders,
+  ISingleAudiovisual,
+  MEDIA_TYPE
+} from "../../../types"
 
 interface Props {
-  movie: ISingleMovie
+  audiovisual: ISingleAudiovisual
   providers: IProviders
 }
 
-const SingleMovie: NextPage<Props> = ({ movie, providers }) => {
+const SingleMovie: NextPage<Props> = ({ audiovisual, providers }) => {
   const router = useRouter()
 
   if (router.isFallback) {
@@ -26,9 +30,9 @@ const SingleMovie: NextPage<Props> = ({ movie, providers }) => {
   }
 
   return (
-    <Layout title={`Where to watch | ${movie.title}`}>
+    <Layout title={`Where to watch | ${audiovisual.title}`}>
       <section>
-        <SingleHeader audiovisual={movie} />
+        <SingleHeader audiovisual={audiovisual} />
         <SingleFooter providers={providers} />
       </section>
     </Layout>
@@ -38,14 +42,13 @@ const SingleMovie: NextPage<Props> = ({ movie, providers }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   let id_list: string[] = []
 
-  const audiovisuals: (ISerie | IMovie)[] = (
-    await getDailyTrendingAudiovisuals()
-  )
-    .concat(await getWeeklyTrendingAudiovisuals())
-    .concat(await getPopularMovies(1))
+  const audiovisuals: IAudiovisual[] = (await getTrending("day"))
+    .concat(await getTrending("week"))
+    .concat(await getPopular("movie", 1))
 
   audiovisuals.forEach((a) => {
-    if (!a.media_type || a.media_type !== "tv") id_list.push(String(a.id))
+    if (!a.media_type || a.media_type !== MEDIA_TYPE.TV)
+      id_list.push(String(a.id))
   })
 
   const paths = id_list.map((id) => {
@@ -59,11 +62,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params!
 
-  const movie: ISingleMovie = await getMovieById(Number(id))
-  const providers: IProviders[] | null = await getMovieProvidersById(Number(id))
+  const audiovisual: ISingleAudiovisual | null = await getById(
+    "movie",
+    Number(id)
+  )
+  const providers: IProviders[] | null = await getProvidersById(
+    "movie",
+    Number(id)
+  )
 
   return {
-    props: { movie, providers }
+    props: { audiovisual, providers }
   }
 }
 

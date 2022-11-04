@@ -1,113 +1,161 @@
 import {
-  IMovie,
-  ISingleMovie,
-  ISingleSerie,
-  ISerie,
-  IProviders
+  IAudiovisual,
+  IProviders,
+  ISingleAudiovisual,
+  MEDIA_TYPE
 } from "../types"
+import { averageRuntime } from "../utils/utils"
 
 const keyParams: string = `api_key=${process.env.NEXT_PUBLIC_THEMOVIEDB_API_KEY}&region=ES&language=es&include_adult=false`
 
-function filterBrokenPosters(audiovisuals: (IMovie | ISerie)[]) {
-  return audiovisuals.filter((a: IMovie | ISerie) => a.poster_path !== null)
+/**
+ * Filter audiovisuals without poster
+ */
+function filterBrokenPosters(audiovisuals: IAudiovisual[]) {
+  return audiovisuals.filter((a: IAudiovisual) => a.poster_path !== null)
 }
 
-function filterPersonSearch(audiovisuals: (IMovie | ISerie)[]) {
-  return audiovisuals.filter((r: IMovie | ISerie) => r.media_type !== "person")
+/**
+ * Filter persons from audiovisuals
+ */
+function filterPersonSearch(audiovisuals: IAudiovisual[]) {
+  return audiovisuals.filter((a: IAudiovisual) => a.media_type !== "person")
 }
 
-export async function getDailyTrendingAudiovisuals(): Promise<
-  (IMovie | ISerie)[]
-> {
-  const res: Promise<(IMovie | ISerie)[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/trending/all/day?${keyParams}`
+/**
+ * Get daily or weekly trending audiovisuals
+ */
+export async function getTrending(
+  when: "day" | "week"
+): Promise<IAudiovisual[]> {
+  let audiovisuals: IAudiovisual[] = []
+
+  await fetch(
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/trending/all/${when}?${keyParams}`
   )
     .then((r) => r.json())
     .then((r) => r.results)
+    .then((r) =>
+      r.forEach((a: any) => {
+        audiovisuals.push({
+          id: a.id,
+          title: a.title || a.name,
+          original_title: a.original_title || a.original_name,
+          overview: a.overview,
+          release_date: a.release_date || a.first_air_date,
+          poster_path: a.poster_path,
+          media_type: a.media_type
+        })
+      })
+    )
 
-  return res
+  return audiovisuals
 }
 
-export async function getWeeklyTrendingAudiovisuals(): Promise<
-  (IMovie | ISerie)[]
-> {
-  const res: Promise<(IMovie | ISerie)[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/trending/all/week?${keyParams}`
+/**
+ * Get popular movies or series
+ */
+export async function getPopular(
+  type: "movie" | "tv",
+  page: number
+): Promise<IAudiovisual[]> {
+  let audiovisuals: IAudiovisual[] = []
+
+  await fetch(
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/${type}/popular?${keyParams}&page=${page}`
   )
     .then((r) => r.json())
     .then((r) => r.results)
+    .then((r) =>
+      r.forEach((a: any) => {
+        audiovisuals.push({
+          id: a.id,
+          title: a.title || a.name,
+          original_title: a.original_title || a.original_name,
+          overview: a.overview,
+          release_date: a.release_date || a.first_air_date,
+          poster_path: a.poster_path,
+          media_type: type as MEDIA_TYPE
+        })
+      })
+    )
 
-  return res
+  return audiovisuals
 }
 
-export async function getPopularMovies(page: number): Promise<IMovie[]> {
-  const res: Promise<IMovie[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/movie/popular?${keyParams}&page=${page}`
+/**
+ * Get movies or series by id
+ */
+export async function getById(
+  type: "movie" | "tv",
+  id: number
+): Promise<ISingleAudiovisual | null> {
+  let audiovisual: ISingleAudiovisual | null = null
+
+  await fetch(
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/${type}/${id}?${keyParams}`
   )
     .then((r) => r.json())
-    .then((r) => r.results)
+    .then((a) => {
+      audiovisual = {
+        id: a.id,
+        title: a.title || a.name,
+        original_title: a.original_title || a.original_name,
+        overview: a.overview,
+        release_date: a.release_date || a.first_air_date,
+        poster_path: a.poster_path,
+        media_type: type as MEDIA_TYPE,
+        genres: a.genres,
+        tagline: a.tagline,
+        runtime: a.runtime || averageRuntime(a.episode_run_time)
+      }
+    })
 
-  return res
+  return audiovisual
 }
 
-export async function getPopularTVSeries(page: number): Promise<ISerie[]> {
-  const res: Promise<ISerie[]> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/tv/popular?${keyParams}&page=${page}`
-  )
-    .then((r) => r.json())
-    .then((r) => r.results)
-
-  return res
-}
-
+/**
+ * Search movies or series by title
+ */
 export async function getAudiovisualsByTitle(
   page: number,
   title: string = ""
-): Promise<(IMovie | ISerie)[]> {
-  const res: Promise<(IMovie | ISerie)[]> = await fetch(
+): Promise<IAudiovisual[]> {
+  let audiovisuals: IAudiovisual[] = []
+
+  await fetch(
     `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/search/multi?${keyParams}&query=${title}&page=${page}`
   )
     .then((r) => r.json())
     .then((r) => r.results)
     .then((r) => r && filterBrokenPosters(r))
     .then((r) => r && filterPersonSearch(r))
+    .then((r) =>
+      r.forEach((a: any) => {
+        audiovisuals.push({
+          id: a.id,
+          title: a.title || a.name,
+          original_title: a.original_title || a.original_name,
+          overview: a.overview,
+          release_date: a.release_date || a.first_air_date,
+          poster_path: a.poster_path,
+          media_type: a.media_type
+        })
+      })
+    )
 
-  return res
+  return audiovisuals
 }
 
-export async function getMovieById(id: number): Promise<ISingleMovie> {
-  const res: Promise<ISingleMovie> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/movie/${id}?${keyParams}`
-  ).then((r) => r.json())
-
-  return res
-}
-
-export async function getSerieById(id: number): Promise<ISingleSerie> {
-  const res: Promise<ISingleSerie> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/tv/${id}?${keyParams}`
-  ).then((r) => r.json())
-
-  return res
-}
-
-export async function getMovieProvidersById(
+/**
+ * Get providers by audiovisual id
+ */
+export async function getProvidersById(
+  type: "movie" | "tv",
   id: number
 ): Promise<IProviders[] | null> {
   const res: Promise<IProviders[] | null> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/movie/${id}/watch/providers?${keyParams}`
-  )
-    .then((r) => r && r.json())
-    .then((r) => r && r.results.ES)
-
-  return res || null
-}
-
-export async function getSerieProvidersById(
-  id: number
-): Promise<IProviders[] | null> {
-  const res: Promise<IProviders[] | null> = await fetch(
-    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/tv/${id}/watch/providers?${keyParams}`
+    `${process.env.NEXT_PUBLIC_THEMOVIEDB_API_URL}/${type}/${id}/watch/providers?${keyParams}`
   )
     .then((r) => r && r.json())
     .then((r) => r && r.results.ES)

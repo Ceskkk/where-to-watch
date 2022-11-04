@@ -1,31 +1,14 @@
 import Image from "next/image"
 
 import { formatDate, timeConverter } from "../utils/utils"
-import { ISingleMovie, ISingleSerie } from "../types"
+import { ISingleAudiovisual } from "../types"
 import styles from "../styles/SingleHeader.module.css"
-import { isMovie } from "../types/guards"
 
 export default function SingleHeader({
   audiovisual
 }: {
-  audiovisual: ISingleMovie | ISingleSerie
+  audiovisual: ISingleAudiovisual
 }) {
-  const audiovisualTitle = isMovie(audiovisual)
-    ? audiovisual.title
-    : audiovisual.name
-
-  const audiovisualOriginalTitle = isMovie(audiovisual)
-    ? audiovisual.original_title
-    : audiovisual.original_name
-
-  const audiovisualRelease = isMovie(audiovisual)
-    ? audiovisual.release_date
-    : audiovisual.first_air_date
-
-  const audiovisualRuntime = isMovie(audiovisual)
-    ? audiovisual.runtime
-    : audiovisual.episode_run_time[0]
-
   return (
     <header className={styles.header}>
       <div
@@ -38,7 +21,7 @@ export default function SingleHeader({
       <div className={styles.poster}>
         <Image
           src={`${process.env.NEXT_PUBLIC_THEMOVIEDB_API_IMAGES_URL}/w300/${audiovisual.poster_path}`}
-          alt={`Poster de ${audiovisualTitle}`}
+          alt={`Poster de ${audiovisual.title}`}
           width={300}
           height={450}
         />
@@ -46,15 +29,21 @@ export default function SingleHeader({
 
       <div className={styles.info}>
         <h2>
-          {isMovie(audiovisual) ? audiovisual.title : audiovisual.name}{" "}
-          {audiovisualTitle !== audiovisualOriginalTitle &&
-            `(${audiovisualOriginalTitle})`}
+          {audiovisual.title}
+          {audiovisual.title !== audiovisual.original_title &&
+            `(${audiovisual.original_title})`}
         </h2>
 
         <p>
-          <span>{formatDate(audiovisualRelease)}</span>
-          &nbsp;·&nbsp;
-          <span>{timeConverter(audiovisualRuntime)}</span>
+          <span>{formatDate(audiovisual.release_date)}</span>
+          {audiovisual.runtime ? (
+            <>
+              &nbsp;·&nbsp;
+              <span>{timeConverter(audiovisual.runtime)}</span>
+            </>
+          ) : (
+            ""
+          )}
         </p>
 
         {audiovisual.tagline && <i>{audiovisual.tagline}</i>}

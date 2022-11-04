@@ -1,12 +1,11 @@
 import Card from "./Card"
-import { isMovie } from "../types/guards"
-import { IMovie, ISerie } from "../types"
+import { IAudiovisual, MEDIA_TYPE } from "../types"
 import styles from "../styles/CardList.module.css"
 
 export default function CardList({
   audiovisuals
 }: {
-  audiovisuals: (IMovie | ISerie)[]
+  audiovisuals: IAudiovisual[]
 }) {
   return (
     <section className={styles.list}>
@@ -15,8 +14,8 @@ export default function CardList({
         audiovisuals.map((audiovisual) => (
           <Card
             key={
-              isMovie(audiovisual)
-                ? `película-${audiovisual.id}`
+              audiovisual.media_type === MEDIA_TYPE.MOVIE
+                ? `pelicula-${audiovisual.id}`
                 : `serie-${audiovisual.id}`
             }
             audiovisual={audiovisual}

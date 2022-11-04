@@ -4,23 +4,23 @@ import type { GetServerSideProps, NextPage } from "next"
 import Layout from "../layouts/Layout"
 import CardList from "../components/CardList"
 import Searcher from "../components/Searcher"
-import { getPopularMovies } from "../services/audiovisuals"
+import { getPopular } from "../services/audiovisuals"
 import useInfiniteScroll from "../hooks/useInfiniteScroll"
-import { IMovie } from "../types"
+import { IAudiovisual } from "../types"
 
 interface Props {
-  audiovisuals: IMovie[]
+  audiovisuals: IAudiovisual[]
 }
 
 const Movies: NextPage<Props> = ({ audiovisuals }) => {
   const [moreAudiovisuals, setMoreAudiovisuals] =
-    useState<IMovie[]>(audiovisuals)
+    useState<IAudiovisual[]>(audiovisuals)
   const [page, setPage] = useState<number>(2)
 
   const { isLoading, setIsLoading } = useInfiniteScroll(loadMore)
 
   async function loadMore() {
-    const audiovisuals: IMovie[] = await getPopularMovies(page)
+    const audiovisuals: IAudiovisual[] = await getPopular("movie", page)
 
     setMoreAudiovisuals(moreAudiovisuals.concat(audiovisuals))
     setPage((prevValue) => prevValue + 1)
@@ -42,7 +42,7 @@ const Movies: NextPage<Props> = ({ audiovisuals }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const audiovisuals: IMovie[] = await getPopularMovies(1)
+  const audiovisuals: IAudiovisual[] = await getPopular("movie", 1)
 
   return {
     props: { audiovisuals }
