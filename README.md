@@ -1,6 +1,6 @@
 # Where to Watch
 Where to watch allows you to search between thousands of movies and tv series and check at what streaming platforms is currently available
-Where to watch uses [https://developers.themoviedb.org/](TMDB API) to fetch information
+Where to watch uses [TMDB API](https://developers.themoviedb.org) to fetch information
 
 ## How to run it
 1. Clone the repo:
