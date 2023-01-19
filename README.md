@@ -9,6 +9,7 @@ git clone https://github.com/Ceskkk/where-to-watch
 ```
 2. Install dependencies:
 ```
+cd .\where-to-watch\
 npm install
 ```
 3. Configure environment variables following .env.template instructions
